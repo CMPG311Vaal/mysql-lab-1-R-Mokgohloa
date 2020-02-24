@@ -1,0 +1,445 @@
+
+Rudolph Mokgohloa
+Attachments
+3:28 PM (0 minutes ago)
+to Mohlokoanetlebeng
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> create database BidvestBank;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> use BidvestBank;
+Database changed
+mysql> create table BankBranch(
+    -> branch_name varchar(50) not null primary key,
+    -> branch_city varchar(50) not null,
+    -> assets int not null);
+Query OK, 0 rows affected (0.80 sec)
+
+mysql> create table CustomerAccount(
+    -> account_number varchar(50) not null primary key,
+    -> branch_name varchar(50) not null,
+    -> balance double not null);
+Query OK, 0 rows affected (0.57 sec)
+
+mysql> create table Loan(
+    -> loan_number varchar(50) not null primary key,
+    -> branch_name varchar(50) not null,
+    -> amount double not null);
+Query OK, 0 rows affected (1.72 sec)
+
+mysql> create table Employee(
+    -> employee_name varchar(50) not null primary key,
+    -> branch_name varchar(50) not null,
+    -> salary double not null);
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> create table Customer(
+    -> customer_name varchar(50) not null,
+    -> customer_street varchar(50) not null,
+    -> customer_city varchar(50) not null);
+Query OK, 0 rows affected (0.96 sec)
+
+mysql> create table Depositor(
+    -> customer_name varchar(50) not null,
+    -> account_number varchar(50) not null);
+Query OK, 0 rows affected (0.80 sec)
+
+mysql> create table Borrower(
+    -> customer_name varchar(50) not null,
+    -> loan_number varchar(50) not null);
+Query OK, 0 rows affected (0.96 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_bidvestbank |
++-----------------------+
+| bankbranch            |
+| borrower              |
+| customer              |
+| customeraccount       |
+| depositor             |
+| employee              |
+| loan                  |
++-----------------------+
+7 rows in set (0.01 sec)
+
+mysql> describe BankBranch;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_name | varchar(50) | NO   | PRI | NULL    |       |
+| branch_city | varchar(50) | NO   |     | NULL    |       |
+| assets      | int(11)     | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.37 sec)
+
+mysql> describe CustomerAccount;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| account_number | varchar(50) | NO   | PRI | NULL    |       |
+| branch_name    | varchar(50) | NO   |     | NULL    |       |
+| balance        | double      | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> describe Employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_name | varchar(50) | NO   | PRI | NULL    |       |
+| branch_name   | varchar(50) | NO   |     | NULL    |       |
+| salary        | double      | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> describe Loan;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| loan_number | varchar(50) | NO   | PRI | NULL    |       |
+| branch_name | varchar(50) | NO   |     | NULL    |       |
+| amount      | double      | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> describe Customer;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| customer_name   | varchar(50) | NO   |     | NULL    |       |
+| customer_street | varchar(50) | NO   |     | NULL    |       |
+| customer_city   | varchar(50) | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> describe Depositor;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| customer_name  | varchar(50) | NO   |     | NULL    |       |
+| account_number | varchar(50) | NO   |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> describe Borrower;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| customer_name | varchar(50) | NO   |     | NULL    |       |
+| loan_number   | varchar(50) | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> insert into BankBranch values
+    -> ('Midrand', 'Johannesburg', 7100000),
+    -> ('Newtown', 'Johannesburg', 9000000),
+    -> ('Mabopane', 'Pretoria', 400000),
+    -> ('Belgravia', 'Kimberly', 3700000),
+    -> ('Sunnyside', 'Pretoria', 1700000),
+    -> ('Amanzimtoti', 'Durban', 300000),
+    -> ('Universitas', 'Bloemfontein', 2100000),
+    -> ('Mamelodi', 'Pretoria', 8000000);
+Query OK, 8 rows affected (0.18 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> insert into CustomerAccount values
+    -> ('A-5324', 'Newtown', 500),
+    -> ('A-5624', 'Sunnyside', 400),
+    -> ('A-7794', 'Midrand', 900),
+    -> ('A-4467', 'Mabopane', 700),
+    -> ('A-3546', 'Midrand', 750),
+    -> ('A-3453', 'Universitas', 700),
+    -> ('A-2542', 'Mamelodi', 350);
+Query OK, 7 rows affected (0.83 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> insert into Employee values
+    -> ('Modise', 'Sunnyside', 1500),
+    -> ('Brown', 'Sunnyside', 1300),
+    -> ('Gopal', 'Sunnyside', 5300),
+    -> ('Johnson', 'Newtown', 1500),
+    -> ('Loreena', 'Newtown', 1300),
+    -> ('Peterson', 'Newtown', 2500),
+    -> ('Rao', 'Austin', 1500),
+    -> ('Sato', 'Austin', 1600);
+Query OK, 8 rows affected (0.19 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> insert into Loan values
+    -> ('L-11', 'Mamelodi', 900),
+    -> ('L-14', 'Newtown', 1500),
+    -> ('L-15', 'Sunnyside', 1500),
+    -> ('L-16', 'Sunnyside', 1300),
+    -> ('L-17', 'Newtown', 1000),
+    -> ('L-23', 'Universitas', 2000),
+    -> ('L-93', 'Mabopane', 500);
+Query OK, 7 rows affected (1.56 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> insert into Customer values
+    -> ('Modise', 'Spring', 'George'),
+    -> ('Brooks', 'Senator', 'Johannesburg'),
+    -> ('Jooste', 'North', 'Kimberly'),
+    -> ('Lombard', 'Sand Hill', 'Nelspruit'),
+    -> ('Mokwena', 'Walnut', 'Port-Elizabeth'),
+    -> ('Johnson', 'Mmabatho', 'Mafikeng'),
+    -> ('Johnson', 'Alma', 'Bloemfontein'),
+    -> ('Zwane', 'Main', 'Mafikeng'),
+    -> ('Lindsay', 'Park', 'George'),
+    -> ('Smith', 'North', 'Kimberly'),
+    -> ('Dlamini', 'Putnam', 'Port-Elizabeth'),
+    -> ('Williams', 'Nassau', 'Giyane');
+Query OK, 12 rows affected (0.23 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> insert into Depositor values
+    -> ('Johnson', 'A-5624'),
+    -> ('Johnson', 'A-5624'),
+    -> ('Johnson', 'A-7794'),
+    -> ('Zwane', 'A-3546'),
+    -> ('Lindsay', 'A-3453'),
+    -> ('Smith', 'A-4467'),
+    -> ('Dlamini', 'A-2542');
+Query OK, 7 rows affected (0.21 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> insert into Borrower valuess
+    -> ('Modise', 'L-16'),
+    -> ('Jooste', 'L-93'),
+    -> ('Johnson', 'L-15'),
+    -> ('Jackson', 'L-14'),
+    -> ('Zwane', 'L-17'),
+    -> ('Smith', 'L-11'),
+    -> ('Smith', 'L-23'),
+    -> ('Williams', 'L-17');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valuess
+('Modise', 'L-16'),
+('Jooste', 'L-93'),
+('Johnson', 'L-15'),
+('Jackson',' at line 1
+mysql> insert into Borrower values
+    -> ('Modise', 'L-16'),
+    -> ('Jooste', 'L-93'),
+    -> ('Johnson', 'L-15'),
+    -> ('Jackson', 'L-14'),
+    -> ('Zwane', 'L-17'),
+    -> ('Smith', 'L-11'),
+    -> ('Smith', 'L-23'),
+    -> ('Williams', 'L-17');
+Query OK, 8 rows affected (0.21 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from BankBranch;
++-------------+--------------+---------+
+| branch_name | branch_city  | assets  |
++-------------+--------------+---------+
+| Amanzimtoti | Durban       |  300000 |
+| Belgravia   | Kimberly     | 3700000 |
+| Mabopane    | Pretoria     |  400000 |
+| Mamelodi    | Pretoria     | 8000000 |
+| Midrand     | Johannesburg | 7100000 |
+| Newtown     | Johannesburg | 9000000 |
+| Sunnyside   | Pretoria     | 1700000 |
+| Universitas | Bloemfontein | 2100000 |
++-------------+--------------+---------+
+8 rows in set (0.13 sec)
+
+mysql> select * from CustomerAccount;
++----------------+-------------+---------+
+| account_number | branch_name | balance |
++----------------+-------------+---------+
+| A-2542         | Mamelodi    |     350 |
+| A-3453         | Universitas |     700 |
+| A-3546         | Midrand     |     750 |
+| A-4467         | Mabopane    |     700 |
+| A-5324         | Newtown     |     500 |
+| A-5624         | Sunnyside   |     400 |
+| A-7794         | Midrand     |     900 |
++----------------+-------------+---------+
+7 rows in set (0.11 sec)
+
+mysql> select * from Employee;
++---------------+-------------+--------+
+| employee_name | branch_name | salary |
++---------------+-------------+--------+
+| Brown         | Sunnyside   |   1300 |
+| Gopal         | Sunnyside   |   5300 |
+| Johnson       | Newtown     |   1500 |
+| Loreena       | Newtown     |   1300 |
+| Modise        | Sunnyside   |   1500 |
+| Peterson      | Newtown     |   2500 |
+| Rao           | Austin      |   1500 |
+| Sato          | Austin      |   1600 |
++---------------+-------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Loan;
++-------------+-------------+--------+
+| loan_number | branch_name | amount |
++-------------+-------------+--------+
+| L-11        | Mamelodi    |    900 |
+| L-14        | Newtown     |   1500 |
+| L-15        | Sunnyside   |   1500 |
+| L-16        | Sunnyside   |   1300 |
+| L-17        | Newtown     |   1000 |
+| L-23        | Universitas |   2000 |
+| L-93        | Mabopane    |    500 |
++-------------+-------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Customer;
++---------------+-----------------+----------------+
+| customer_name | customer_street | customer_city  |
++---------------+-----------------+----------------+
+| Modise        | Spring          | George         |
+| Brooks        | Senator         | Johannesburg   |
+| Jooste        | North           | Kimberly       |
+| Lombard       | Sand Hill       | Nelspruit      |
+| Mokwena       | Walnut          | Port-Elizabeth |
+| Johnson       | Mmabatho        | Mafikeng       |
+| Johnson       | Alma            | Bloemfontein   |
+| Zwane         | Main            | Mafikeng       |
+| Lindsay       | Park            | George         |
+| Smith         | North           | Kimberly       |
+| Dlamini       | Putnam          | Port-Elizabeth |
+| Williams      | Nassau          | Giyane         |
++---------------+-----------------+----------------+
+12 rows in set (0.00 sec)
+
+mysql> select * from Depositor;
++---------------+----------------+
+| customer_name | account_number |
++---------------+----------------+
+| Johnson       | A-5624         |
+| Johnson       | A-5624         |
+| Johnson       | A-7794         |
+| Zwane         | A-3546         |
+| Lindsay       | A-3453         |
+| Smith         | A-4467         |
+| Dlamini       | A-2542         |
++---------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Borrower;
++---------------+-------------+
+| customer_name | loan_number |
++---------------+-------------+
+| Modise        | L-16        |
+| Jooste        | L-93        |
+| Johnson       | L-15        |
+| Jackson       | L-14        |
+| Zwane         | L-17        |
+| Smith         | L-11        |
+| Smith         | L-23        |
+| Williams      | L-17        |
++---------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * CustomerAccount where balance < 700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CustomerAccount where balance < 700' at line 1
+mysql> select * from CustomerAccount where balance < 700;
++----------------+-------------+---------+
+| account_number | branch_name | balance |
++----------------+-------------+---------+
+| A-2542         | Mamelodi    |     350 |
+| A-5324         | Newtown     |     500 |
+| A-5624         | Sunnyside   |     400 |
++----------------+-------------+---------+
+3 rows in set (0.11 sec)
+
+mysql> select * from Customer where customer_city = 'Johannesburg';
++---------------+-----------------+---------------+
+| customer_name | customer_street | customer_city |
++---------------+-----------------+---------------+
+| Brooks        | Senator         | Johannesburg  |
++---------------+-----------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee where salary > 1500 and branch_name <> Newtown;
+ERROR 1054 (42S22): Unknown column 'Newtown' in 'where clause'
+mysql> select * from Employee where salary > 1500 and branch_name <> 'Newtown';
++---------------+-------------+--------+
+| employee_name | branch_name | salary |
++---------------+-------------+--------+
+| Gopal         | Sunnyside   |   5300 |
+| Sato          | Austin      |   1600 |
++---------------+-------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select avg(salary) as avg_salary from Employee;
++------------+
+| avg_salary |
++------------+
+|     2062.5 |
++------------+
+1 row in set (1.29 sec)
+
+mysql> select * from BankBranch where max(assets);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from BankBranch where assets = (select max(assets) from BankBranch);
++-------------+--------------+---------+
+| branch_name | branch_city  | assets  |
++-------------+--------------+---------+
+| Newtown     | Johannesburg | 9000000 |
++-------------+--------------+---------+
+1 row in set (0.34 sec)
+
+mysql> select * from Employee where branch_name = 'Sunnyside';
++---------------+-------------+--------+
+| employee_name | branch_name | salary |
++---------------+-------------+--------+
+| Brown         | Sunnyside   |   1300 |
+| Gopal         | Sunnyside   |   5300 |
+| Modise        | Sunnyside   |   1500 |
++---------------+-------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Borrower;
++---------------+-------------+
+| customer_name | loan_number |
++---------------+-------------+
+| Modise        | L-16        |
+| Jooste        | L-93        |
+| Johnson       | L-15        |
+| Jackson       | L-14        |
+| Zwane         | L-17        |
+| Smith         | L-11        |
+| Smith         | L-23        |
+| Williams      | L-17        |
++---------------+-------------+
+8 rows in set (0.18 sec)
+
+mysql> select * from CustomerAccount where balance > 900;
+Empty set (0.12 sec)
+
+mysql> select account_number, balance from CustomerAccount where branch_name = 'Newtown' and balance > 600;
+Empty set (0.00 sec)
+
+mysql> select branch_name, assets from BankBranch;
++-------------+---------+
+| branch_name | assets  |
++-------------+---------+
+| Amanzimtoti |  300000 |
+| Belgravia   | 3700000 |
+| Mabopane    |  400000 |
+| Mamelodi    | 8000000 |
+| Midrand     | 7100000 |
+| Newtown     | 9000000 |
+| Sunnyside   | 1700000 |
+| Universitas | 2100000 |
++-------------+---------+
+8 rows in set (0.00 sec)
