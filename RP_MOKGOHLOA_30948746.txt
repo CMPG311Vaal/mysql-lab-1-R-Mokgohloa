@@ -1,9 +1,4 @@
 
-Rudolph Mokgohloa
-Attachments
-3:28 PM (0 minutes ago)
-to Mohlokoanetlebeng
-
 mysql> show databases;
 +--------------------+
 | Database           |
